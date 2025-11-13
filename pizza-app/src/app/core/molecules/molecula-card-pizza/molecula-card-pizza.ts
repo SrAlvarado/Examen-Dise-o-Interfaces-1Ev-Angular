@@ -15,10 +15,11 @@ export class MoleculaCardPizza {
   
   cantidad = signal(1);
 
+// Código corregido en molecula-card-pizza.ts:
   onCantidadChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const num = Number(target.value);
-    this.cantidad.set(num > 0 ? num : 1);
+    this.cantidad.set(num > 0 ? num : 1); 
   }
 
   onAddToCart() {
@@ -28,6 +29,5 @@ export class MoleculaCardPizza {
       subtotal: this.pizza().precio * this.cantidad(),
     });
     this.cantidad.set(1); // Reiniciar la cantidad después de la compra
-    alert(`Añadido ${this.cantidad()}x ${this.pizza().nombre} al carrito.`); // Mensaje de feedback simple
   }
 }

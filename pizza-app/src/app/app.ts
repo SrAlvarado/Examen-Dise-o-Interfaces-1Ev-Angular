@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, DOCUMENT, inject, signal } from '@angular/core';
 import { CartItem, Pizza } from './core/models/pizza.model';
 import { PaymentForm } from './core/models/pago.form.model';
 import { OrganismoFormularioPago } from "./core/organisms/organismo-formulario-pago/organismo-formulario-pago";
@@ -6,15 +6,14 @@ import { OrganismoFooter } from "./core/organisms/organismo-footer/organismo-foo
 import { OrganismoListadoPizzas } from "./core/organisms/organismo-listado-pizzas/organismo-listado-pizzas";
 import { OrganismoCabecera } from "./core/organisms/organismo-cabecera/organismo-cabecera";
 
-// PIZZAS_MOCK actualizado con clases de Bootstrap Icons para la maqueta
 const PIZZAS_MOCK: Pizza[] = [
-  // Iconos: bi-cup-fill (Salsa), bi-cheese (Queso), bi-piggy-bank-fill (Carne/Bacon), bi-globe (Cebolla), bi-fish (Pescado), bi-heart-fill (Pimiento/Verdura), bi-pineapple-fill (Piña), bi-egg-fill (Huevo), bi-flower3 (Champiñón)
-  { id: 1, nombre: 'Margarita', precio: 15.50, imagenUrl: './/public/pizza-margarita.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese'] }, 
-  { id: 2, nombre: 'BBQ', precio: 18.00, imagenUrl: './/public/pizza-bbq.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-piggy-bank-fill', 'bi-globe'] }, 
-  { id: 3, nombre: 'Napolitana', precio: 16.00, imagenUrl: './/public/pizza-napolitana.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-fish'] }, 
-  { id: 4, nombre: 'Vegetariana', precio: 17.50, imagenUrl: './/public/pizza-vegetariana.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-heart-fill', 'bi-flower3'] }, 
-  { id: 5, nombre: 'Hawaiana', precio: 20.50, imagenUrl: './/public/pizza-hawaiana.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-pineapple-fill'] }, 
-  { id: 6, nombre: 'Carbonara', precio: 18.00, imagenUrl: './/public/pizza-carbonara.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-egg-fill', 'bi-flower3'] }, 
+  // Iconos: flaticon-sauce (Salsa), flaticon-cheese (Queso), flaticon-bacon (Carne/Bacon), flaticon-onion (Cebolla), flaticon-fish (Pescado), flaticon-pepper (Pimiento/Verdura), flaticon-pineapple (Piña), flaticon-egg (Huevo), flaticon-mushroom (Champiñón)
+  { id: 1, nombre: 'Margarita', precio: 15.50, imagenUrl: './/public/pizza-margarita.jpg', ingredientesIconos: ['flaticon-sauce', 'flaticon-cheese'] }, 
+  { id: 2, nombre: 'BBQ', precio: 18.00, imagenUrl: './/public/pizza-bbq.jpg', ingredientesIconos: ['flaticon-sauce', 'flaticon-cheese', 'flaticon-bacon', 'flaticon-onion'] }, 
+  { id: 3, nombre: 'Napolitana', precio: 16.00, imagenUrl: './/public/pizza-napolitana.jpg', ingredientesIconos: ['flaticon-sauce', 'flaticon-cheese', 'flaticon-fish'] }, 
+  { id: 4, nombre: 'Vegetariana', precio: 17.50, imagenUrl: './/public/pizza-vegetariana.jpg', ingredientesIconos: ['flaticon-sauce', 'flaticon-cheese', 'flaticon-pepper', 'flaticon-mushroom'] }, 
+  { id: 5, nombre: 'Hawaiana', precio: 20.50, imagenUrl: './/public/pizza-hawaiana.jpg', ingredientesIconos: ['flaticon-sauce', 'flaticon-cheese', 'flaticon-pineapple'] }, 
+  { id: 6, nombre: 'Carbonara', precio: 18.00, imagenUrl: './/public/pizza-carbonara.jpg', ingredientesIconos: ['flaticon-sauce', 'flaticon-cheese', 'flaticon-egg', 'flaticon-mushroom'] }, 
 ];
 
 @Component({
@@ -25,8 +24,8 @@ const PIZZAS_MOCK: Pizza[] = [
 })
 export class App {
   protected readonly title = signal('pizza-app');
-  
-  // 👈 Implementación simple como método de clase
+  private document = inject(DOCUMENT);
+
   pizzasDisponibles(): Pizza[] {
       return PIZZAS_MOCK;
   }
@@ -51,7 +50,15 @@ export class App {
   // Lógica de Limpiar Carrito (básica)
   onClearCart() {
     this.carrito.set([]);
-    // La función de poner foco se omite para mantener la solución simple y básica.
+    
+    // CORRECCIÓN: Implementar la lógica de poner foco
+    const pizzaListAnchor = this.document.getElementById('pizza-list-anchor');
+    if (pizzaListAnchor) {
+      // Necesita tabIndex = -1 para ser enfocable
+      pizzaListAnchor.setAttribute('tabIndex', '-1'); 
+      pizzaListAnchor.scrollIntoView({ behavior: 'smooth' }); // Opcional, pero mejora UX
+      pizzaListAnchor.focus(); // Establece el foco
+    }
   }
 
   // Lógica de Pago (Al limpiar el pedido y dar las gracias, usando alert como la forma más simple)

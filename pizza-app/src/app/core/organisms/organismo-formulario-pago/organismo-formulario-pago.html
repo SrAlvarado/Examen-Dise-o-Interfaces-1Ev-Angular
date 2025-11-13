@@ -3,7 +3,7 @@
 
   <form (ngSubmit)="onSubmit()" class="row g-3">
     
-    <div class="col-md-6">
+    <div class="col-12"> 
       <app-atomo-input 
         label="Hora de Entrega"
         tipo="time" 
@@ -13,7 +13,7 @@
       </app-atomo-input>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-12"> 
       <app-atomo-input 
         label="Dirección"
         tipo="textarea"
@@ -22,56 +22,5 @@
         (valorChange)="onInput('direccion', $event)">
       </app-atomo-input>
     </div>
-
-    <div class="col-12 mt-4">
-      <h5 class="mb-3">Método de Pago:</h5>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="metodoPago" id="tarjeta"
-          [checked]="form().metodoPago === 'Tarjeta'"
-          (change)="onMetodoPagoChange('Tarjeta')">
-        <label class="form-check-label" for="tarjeta">Tarjeta</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="metodoPago" id="bizum"
-          [checked]="form().metodoPago === 'Bizum'"
-          (change)="onMetodoPagoChange('Bizum')">
-        <label class="form-check-label" for="bizum">Bizum</label>
-      </div>
-    </div>
-    
-    <div class="col-12">
-      @if (form().metodoPago === 'Tarjeta') {
-        <app-atomo-input
-          label="Número de Tarjeta (16 dígitos)"
-          tipo="text"
-          [valor]="form().numeroTarjeta"
-          [errorMensaje]="errors().numeroTarjeta"
-          (valorChange)="onInput('numeroTarjeta', $event)">
-        </app-atomo-input>
-      } @else if (form().metodoPago === 'Bizum') {
-        <app-atomo-input
-          label="Número de Teléfono (9 dígitos)"
-          tipo="text"
-          [valor]="form().numeroTelefono"
-          [errorMensaje]="errors().numeroTelefono"
-          (valorChange)="onInput('numeroTelefono', $event)">
-        </app-atomo-input>
-      }
-    </div>
-
-    <div class="col-12 d-flex justify-content-end gap-3 mt-4">
-      <app-atomo-boton
-        texto="LIMPIAR"
-        claseBootstrap="btn-outline-secondary"
-        (clickBoton)="onClear()">
-      </app-atomo-boton>
-
-      <app-atomo-boton
-        texto="PAGAR"
-        claseBootstrap="btn-success"
-        [tipo]="'submit'"
-        (clickBoton)="onSubmit()">
-      </app-atomo-boton>
-    </div>
-  </form>
+    </form>
 </section>
