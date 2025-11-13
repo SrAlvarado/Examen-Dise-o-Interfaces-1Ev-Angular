@@ -16,9 +16,8 @@ export class AtomoInput {
   errorMensaje = input<string>(''); 
 
   onValorChange(event: Event) {
-    const target = event.target as (HTMLInputElement | HTMLTextAreaElement | null);
-    if (target && 'value' in target) {
-      this.valorChange.emit(target.value);
-    }
+    // Usamos 'as any' para forzar la propiedad y evitar el error TS 
+    const valorEmitir = (event.target as any).value; 
+    this.valorChange.emit(valorEmitir);
   }
 }

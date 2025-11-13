@@ -1,1 +1,97 @@
-@import "bootstrap/dist/css/bootstrap.min.css"
+@import "bootstrap/dist/css/bootstrap.min.css";
+  /* ==========================================================
+   Variables de Tema Pizzería Italiana
+   ========================================================== */
+:root {
+  --italian-green: #008C45; /* Verde de la bandera italiana */
+  --italian-white: #F4F5F0; /* Blanco suave, no puro, para un toque vintage */
+  --italian-red: #CD212A;  /* Rojo de la bandera italiana */
+  --italian-dark: #333;    /* Un gris oscuro para texto principal */
+  --italian-light-bg: #fdfaf6; /* Fondo muy claro, crema */
+  --italian-font-primary: 'Arial', sans-serif; /* Puedes cambiar a una fuente más "italiana" si la importas */
+  --italian-font-secondary: 'Georgia', serif;
+}
+
+/* ==========================================================
+   Estilos Globales
+   ========================================================== */
+
+body {
+  font-family: var(--italian-font-primary);
+  background-color: var(--italian-light-bg);
+  color: var(--italian-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--italian-font-secondary);
+  color: var(--italian-dark);
+}
+
+/* Clases de Bootstrap personalizadas para nuestro tema */
+.text-primary { color: var(--italian-red) !important; }
+.btn-success { 
+  background-color: var(--italian-green) !important; 
+  border-color: var(--italian-green) !important;
+  color: var(--italian-white) !important;
+}
+.btn-outline-secondary {
+  color: var(--italian-dark) !important;
+  border-color: var(--italian-dark) !important;
+  &:hover {
+    background-color: var(--italian-dark) !important;
+    color: var(--italian-white) !important;
+  }
+}
+.text-info { color: var(--italian-green) !important; } /* Para los iconos de ingredientes */
+
+
+/* ==========================================================
+   Componente Cabecera (OrganismoCabecera)
+   ========================================================== */
+
+.header-awning {
+  background-color: var(--italian-red); /* Fondo Rojo Sólido */
+  padding: 15px 0; /* Padding estándar */
+}
+
+/* ==========================================================
+   Cartas de Pizza (MoleculaCardPizza)
+   ========================================================== */
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.card-title {
+  color: var(--italian-dark); /* Títulos de las pizzas en oscuro */
+}
+
+/* ==========================================================
+   Formulario de Pago
+   ========================================================== */
+.form-control {
+  border-radius: 5px;
+  border-color: #ccc;
+  &:focus {
+    border-color: var(--italian-green);
+    box-shadow: 0 0 0 0.25rem rgba(0, 140, 69, 0.25); /* Sombra de foco verde */
+  }
+}
+.form-check-input:checked {
+  background-color: var(--italian-green);
+  border-color: var(--italian-green);
+}
+
+.invalid-feedback {
+  color: var(--italian-red);
+  font-weight: bold;
+}
+.bg-red { 
+  background-color: var(--italian-red) !important; 
+}

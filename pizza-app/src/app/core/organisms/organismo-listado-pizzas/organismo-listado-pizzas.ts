@@ -3,6 +3,8 @@ import { CartItem, Pizza } from '../../models/pizza.model';
 import { MoleculaItemPedido } from "../../molecules/molecula-item-pedido/molecula-item-pedido";
 import { MoleculaCardPizza } from "../../molecules/molecula-card-pizza/molecula-card-pizza";
 import { DecimalPipe } from '@angular/common'; 
+
+
 @Component({
   selector: 'app-organismo-listado-pizzas',
   imports: [MoleculaItemPedido, MoleculaCardPizza, DecimalPipe],
@@ -14,6 +16,7 @@ export class OrganismoListadoPizzas {
   pizzas = input.required<Pizza[]>();
   resumenPedido = input.required<CartItem[]>();
   totalPedido = input<number>(0);
+  
   addToCart = output<CartItem>();
 
   onAddToCart(item: CartItem) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-atomo-icono',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './atomo-icono.scss',
 })
 export class AtomoIcono {
-
+  iconoClase = input<string>('');
 }

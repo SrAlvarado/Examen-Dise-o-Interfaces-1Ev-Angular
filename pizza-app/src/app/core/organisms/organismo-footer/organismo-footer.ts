@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-organismo-footer',
@@ -8,5 +8,6 @@ import { Component, input, signal } from '@angular/core';
 })
 export class OrganismoFooter {
   creador = input<string>('Markel Alvarado'); 
-  anioActual = signal<number>(new Date().getFullYear()); 
+  
+  anioActual: number = new Date().getFullYear(); 
 }
