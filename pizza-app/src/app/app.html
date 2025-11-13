@@ -5,20 +5,10 @@
   <app-organismo-listado-pizzas
     [pizzas]="pizzasDisponibles()"
     [resumenPedido]="carrito()"
-    (addToCart)="onAddToCart($event)">
+    [totalPedido]="getTotal()"  (addToCart)="onAddToCart($event)">
   </app-organismo-listado-pizzas>
 
   <hr class="my-5">
-
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <app-organismo-formulario-pago
-        [totalPedido]="getTotal()"
-        (realizarPago)="onPay($event)"
-        (limpiarPedido)="onClearCart()">
-      </app-organismo-formulario-pago>
-    </div>
   </div>
-</div>
 
 <app-organismo-footer creador="Markel Alvarado"></app-organismo-footer>

@@ -11,14 +11,20 @@
     }
   </div>
 
-  @if (resumenPedido().length > 0) {
+ @if (resumenPedido().length > 0) {
     <h2 class="text-center text-uppercase my-4">Resumen del Pedido</h2>
-    <div class="list-group shadow-sm">
+    <div class="list-group shadow-sm mb-3">
       @for (item of resumenPedido(); track item.pizza.id) {
         <app-molecula-item-pedido 
           [item]="item">
         </app-molecula-item-pedido>
       }
+    </div>
+    <div class="card p-3 shadow-sm bg-light">
+        <h4 class="mb-0 d-flex justify-content-between">
+            <span>Total:</span>
+            <span class="fw-bold text-primary">{{ totalPedido() | number:'1.2-2' }} €</span>
+        </h4>
     </div>
   }
 </section>

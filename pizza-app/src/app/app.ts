@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { CartItem, Pizza } from './core/models/pizza.model';
 import { PaymentForm } from './core/models/pago.form.model';
 import { OrganismoFormularioPago } from "./core/organisms/organismo-formulario-pago/organismo-formulario-pago";
@@ -21,11 +21,46 @@ const PIZZAS_MOCK: Pizza[] = [
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('pizza-app');
-  pizzasDisponibles = signal<Pizza[]>(PIZZAS_MOCK);
+private router = inject(Router);
+
+  // Estado: Lista de pizzas disponibles (sin filtrar)
+  private todasLasPizzas = signal<Pizza[]>(PIZZAS_MOCK);
+
+  // Estado: Carrito de la compra (Lista de CartItem)
   carrito = signal<CartItem[]>([]);
 
-  // Lógica de adición al carrito
+  // Estado: Lista de pizzas que se muestran en la vista (filtradas)
+  pizzasMostradas = signal<Pizza[]>(PIZZAS_MOCK); 
+
+  private nextId = PIZZAS_MOCK.length + 1; // Necesario para la lógica de añadir
+
+
+  // --- LÓGICA DE BÚSQUEDA Y FILTRADO (NUEVA) ---
+  
+  onBuscarRecetas(termino: string) {
+    this.aplicarFiltro(termino);
+  }
+
+  private aplicarFiltro(termino: string) {
+    const terminoNormalizado = termino.toLowerCase().trim();
+
+    if (!terminoNormalizado) {
+      this.pizzasMostradas.set(this.todasLasPizzas());
+      return;
+    }
+
+    const pizzasFiltradas = this.todasLasPizzas().filter(pizza =>
+      pizza.nombre.toLowerCase().includes(terminoNormalizado) ||
+      pizza.ingredientesIconos.some(ing => ing.toLowerCase().includes(terminoNormalizado))
+    );
+
+    this.pizzasMostradas.set(pizzasFiltradas);
+  }
+  pizzasDisponibles(): Pizza[] {
+    return this.todasLasPizzas(); 
+  }
+  
+  // --- LÓGICA DE AÑADIR PIZZA ---
   onAddToCart(item: CartItem) {
     this.carrito.update(currentCart => {
       const existingItem = currentCart.find(i => i.pizza.id === item.pizza.id);
@@ -40,13 +75,13 @@ export class App {
     });
   }
 
-  // Lógica de Limpiar Carrito (para el botón LIMPIAR del formulario de pago)
+  // Lógica de Limpiar Carrito
   onClearCart() {
     this.carrito.set([]);
-    // La funcionalidad de poner el foco en la lista de pizzas requiere ViewChild y se deja como nota.
+    alert('Pedido limpiado y foco devuelto a las pizzas.'); 
   }
 
-  // Lógica de Pago (Al limpiar el pedido y dar las gracias)
+  // Lógica de Pago
   onPay(formData: PaymentForm) {
     if (this.carrito().length === 0) {
       alert('¡El carrito está vacío! Añade pizzas para pagar.');

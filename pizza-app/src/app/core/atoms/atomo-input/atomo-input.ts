@@ -1,8 +1,8 @@
 import { Component, input, output } from '@angular/core';
-
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-atomo-input',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './atomo-input.html',
   styleUrl: './atomo-input.scss',
 })
