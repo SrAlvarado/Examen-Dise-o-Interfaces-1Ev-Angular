@@ -1,59 +1,45 @@
-# PizzaApp
+# Examen-Dise-o-Interfaces-1Ev-Angular : 4V Pizza
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+**Repositorio:** [SrAlvarado/Examen-Dise-o-Interfaces-1Ev-Angular](https://github.com/SrAlvarado/Examen-Dise-o-Interfaces-1Ev-Angular)
 
-## Development server
+## Descripción
+Aplicación web desarrollada en Angular para la gestión y pedido de pizzas (simulación examen DI 1ª Evaluación). Incluye listado de pizzas, carrito de compra y proceso de pago.
 
-To start a local development server, run:
+## Funcionalidades
 
-```bash
-ng serve
-```
+- **Listado de pizzas:** Visualización de pizzas disponibles en una interfaz con tarjetas.
+- **Carrito interactivo:** Añade pizzas al carrito, visualiza resumen del pedido y calcula el total.
+- **Formulario de pago:**
+  - Introducción de datos de entrega (hora y dirección).
+  - Selección de método de pago: tarjeta o Bizum.
+  - Validación de número de tarjeta (16 dígitos) o teléfono (9 dígitos), según el método.
+  - Feedback de errores en tiempo real en el formulario.
+  - Botón para pagar y limpiar el pedido.
+- **Componentización moderna:** Uso de átomos, moléculas y organismos siguiendo la arquitectura Atomic Design.
+- **Diseño responsive:** Basado en [Bootstrap](https://getbootstrap.com/), estilos propios adaptados y variables de tema inspiradas en la bandera italiana.
+- **Interfaz intuitiva:** Colores y fuentes personalizadas, animaciones en las cartas de pizza, y navegación clara.
+- **Eventos y lógica modular:** Comunicación entre componentes vía `@input` y `@output`.
+- **Footer informativo y cabecera personalizada.**
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Estructura del proyecto
 
-## Code scaffolding
+- **src/app/core/organisms:** Organismos para el listado de pizzas y el formulario de pago.
+- **src/app/core/atoms:** Inputs, botones y otros elementos básicos.
+- **src/app/core/molecules:** Tarjetas de pizza, items del pedido.
+- **src/app/app.html:** Composición principal de la vista.
+- **src/styles.scss:** Tema visual, modificando variables de Bootstrap.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+> **Nota:** No se ha implementado navegación por rutas avanzadas ni integración con backend, centrando el proyecto en la interfaz y la experiencia del usuario.
 
-```bash
-ng generate component component-name
-```
+## Lenguajes utilizados
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **TypeScript** (lógica, componentes Angular)
+- **HTML** (plantillas de vistas)
+- **SCSS** (estilos personalizados y tema)
 
-```bash
-ng generate --help
-```
+> Para ver todos los archivos y componentes relacionados con las funcionalidades:  
+> [Ver resultados completos en GitHub code search](https://github.com/SrAlvarado/Examen-Dise-o-Interfaces-1Ev-Angular/search?q=funci%C3%B3n+OR+feature+OR+componente+OR+CRUD+OR+formulario+OR+pizza+OR+carrito+OR+validaci%C3%B3n)
 
-## Building
+---
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+_Repositorios creados por Markel Alvarado para simular un examen práctico de Diseño de Interfaces._

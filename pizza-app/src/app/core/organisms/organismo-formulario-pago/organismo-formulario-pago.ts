@@ -52,15 +52,15 @@ export class OrganismoFormularioPago {
 
     // Validación de longitud tarjeta
     if (data.metodoPago === 'Tarjeta') {
-      if (data.numeroTarjeta.length !== 16) { 
-        newErrors.numeroTarjeta = 'Debe tener 16 dígitos.';
+      if (data.numeroTarjeta.length !== 16 || !/^\d+$/.test(data.numeroTarjeta)) { 
+        newErrors.numeroTarjeta = 'Debe tener 16 dígitos y ser numérico.';
         isValid = false;
       }
     }
     // Validación de longitud telefono
     if (data.metodoPago === 'Bizum') {
-      if (data.numeroTelefono.length !== 9) {
-        newErrors.numeroTelefono = 'Debe tener 9 dígitos.';
+      if (data.numeroTelefono.length !== 9 || !/^\d+$/.test(data.numeroTelefono)) {
+        newErrors.numeroTelefono = 'Debe tener 9 dígitos y ser numérico.';
         isValid = false;
       }
     }
