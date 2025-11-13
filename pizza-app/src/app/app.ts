@@ -1,66 +1,39 @@
-import { Component, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, signal } from '@angular/core';
 import { CartItem, Pizza } from './core/models/pizza.model';
 import { PaymentForm } from './core/models/pago.form.model';
 import { OrganismoFormularioPago } from "./core/organisms/organismo-formulario-pago/organismo-formulario-pago";
 import { OrganismoFooter } from "./core/organisms/organismo-footer/organismo-footer";
 import { OrganismoListadoPizzas } from "./core/organisms/organismo-listado-pizzas/organismo-listado-pizzas";
 import { OrganismoCabecera } from "./core/organisms/organismo-cabecera/organismo-cabecera";
+
+// PIZZAS_MOCK actualizado con clases de Bootstrap Icons para la maqueta
 const PIZZAS_MOCK: Pizza[] = [
-  { id: 1, nombre: 'Margarita', precio: 15.50, imagenUrl: '/receta1.jpg', ingredientesIconos: ['Tomate', 'Mozzarella'] },
-  { id: 2, nombre: 'BBQ', precio: 18.00, imagenUrl: '/receta2.jpg', ingredientesIconos: ['Carne', 'Salsa BBQ'] },
-  { id: 3, nombre: 'Napolitana', precio: 16.00, imagenUrl: '/receta3.jpg', ingredientesIconos: ['Anchoas', 'Alcaparras'] },
-  { id: 4, nombre: 'Vegetariana', precio: 17.50, imagenUrl: '/receta4.jpg', ingredientesIconos: ['Calabacín', 'Pimiento'] },
-  { id: 5, nombre: 'Hawaiana', precio: 20.50, imagenUrl: '/receta1.jpg', ingredientesIconos: ['Piña', 'Jamón'] },
-  { id: 6, nombre: 'Carbonara', precio: 18.00, imagenUrl: '/receta2.jpg', ingredientesIconos: ['Huevo', 'Bacon'] },
+  // Iconos: bi-cup-fill (Salsa), bi-cheese (Queso), bi-piggy-bank-fill (Carne/Bacon), bi-globe (Cebolla), bi-fish (Pescado), bi-heart-fill (Pimiento/Verdura), bi-pineapple-fill (Piña), bi-egg-fill (Huevo), bi-flower3 (Champiñón)
+  { id: 1, nombre: 'Margarita', precio: 15.50, imagenUrl: './/public/pizza-margarita.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese'] }, 
+  { id: 2, nombre: 'BBQ', precio: 18.00, imagenUrl: './/public/pizza-bbq.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-piggy-bank-fill', 'bi-globe'] }, 
+  { id: 3, nombre: 'Napolitana', precio: 16.00, imagenUrl: './/public/pizza-napolitana.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-fish'] }, 
+  { id: 4, nombre: 'Vegetariana', precio: 17.50, imagenUrl: './/public/pizza-vegetariana.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-heart-fill', 'bi-flower3'] }, 
+  { id: 5, nombre: 'Hawaiana', precio: 20.50, imagenUrl: './/public/pizza-hawaiana.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-pineapple-fill'] }, 
+  { id: 6, nombre: 'Carbonara', precio: 18.00, imagenUrl: './/public/pizza-carbonara.jpg', ingredientesIconos: ['bi-cup-fill', 'bi-cheese', 'bi-egg-fill', 'bi-flower3'] }, 
 ];
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, OrganismoFormularioPago, OrganismoFooter, OrganismoListadoPizzas, OrganismoCabecera],
+  imports: [ OrganismoFormularioPago, OrganismoFooter, OrganismoListadoPizzas, OrganismoCabecera],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
-private router = inject(Router);
-
-  // Estado: Lista de pizzas disponibles (sin filtrar)
-  private todasLasPizzas = signal<Pizza[]>(PIZZAS_MOCK);
-
-  // Estado: Carrito de la compra (Lista de CartItem)
+  protected readonly title = signal('pizza-app');
+  
+  // 👈 Implementación simple como método de clase
+  pizzasDisponibles(): Pizza[] {
+      return PIZZAS_MOCK;
+  }
+  
   carrito = signal<CartItem[]>([]);
 
-  // Estado: Lista de pizzas que se muestran en la vista (filtradas)
-  pizzasMostradas = signal<Pizza[]>(PIZZAS_MOCK); 
-
-  private nextId = PIZZAS_MOCK.length + 1; // Necesario para la lógica de añadir
-
-
-  // --- LÓGICA DE BÚSQUEDA Y FILTRADO (NUEVA) ---
-  
-  onBuscarRecetas(termino: string) {
-    this.aplicarFiltro(termino);
-  }
-
-  private aplicarFiltro(termino: string) {
-    const terminoNormalizado = termino.toLowerCase().trim();
-
-    if (!terminoNormalizado) {
-      this.pizzasMostradas.set(this.todasLasPizzas());
-      return;
-    }
-
-    const pizzasFiltradas = this.todasLasPizzas().filter(pizza =>
-      pizza.nombre.toLowerCase().includes(terminoNormalizado) ||
-      pizza.ingredientesIconos.some(ing => ing.toLowerCase().includes(terminoNormalizado))
-    );
-
-    this.pizzasMostradas.set(pizzasFiltradas);
-  }
-  pizzasDisponibles(): Pizza[] {
-    return this.todasLasPizzas(); 
-  }
-  
-  // --- LÓGICA DE AÑADIR PIZZA ---
+  // Lógica de adición al carrito
   onAddToCart(item: CartItem) {
     this.carrito.update(currentCart => {
       const existingItem = currentCart.find(i => i.pizza.id === item.pizza.id);
@@ -75,13 +48,13 @@ private router = inject(Router);
     });
   }
 
-  // Lógica de Limpiar Carrito
+  // Lógica de Limpiar Carrito (básica)
   onClearCart() {
     this.carrito.set([]);
-    alert('Pedido limpiado y foco devuelto a las pizzas.'); 
+    // La función de poner foco se omite para mantener la solución simple y básica.
   }
 
-  // Lógica de Pago
+  // Lógica de Pago (Al limpiar el pedido y dar las gracias, usando alert como la forma más simple)
   onPay(formData: PaymentForm) {
     if (this.carrito().length === 0) {
       alert('¡El carrito está vacío! Añade pizzas para pagar.');

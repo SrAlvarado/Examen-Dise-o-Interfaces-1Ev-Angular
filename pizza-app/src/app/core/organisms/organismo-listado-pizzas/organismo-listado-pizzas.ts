@@ -2,10 +2,10 @@ import { Component, input, output } from '@angular/core';
 import { CartItem, Pizza } from '../../models/pizza.model';
 import { MoleculaItemPedido } from "../../molecules/molecula-item-pedido/molecula-item-pedido";
 import { MoleculaCardPizza } from "../../molecules/molecula-card-pizza/molecula-card-pizza";
-import { DecimalPipe, NgIf } from '@angular/common'; // 👈 Añadir DecimalPipe y NgIf
+import { DecimalPipe } from '@angular/common'; 
 @Component({
   selector: 'app-organismo-listado-pizzas',
-  imports: [MoleculaItemPedido, MoleculaCardPizza, DecimalPipe, NgIf],
+  imports: [MoleculaItemPedido, MoleculaCardPizza, DecimalPipe],
   templateUrl: './organismo-listado-pizzas.html',
   styleUrl: './organismo-listado-pizzas.scss',
   standalone: true,

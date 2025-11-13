@@ -3,33 +3,37 @@
         <h5 class="mb-0">{{ pizza().nombre | uppercase }}</h5>
         <span class="badge bg-primary fs-6">{{ pizza().precio | number:'1.2-2' }}€</span>
       </div>
+      
       <img [src]="pizza().imagenUrl" [alt]="pizza().nombre" class="card-img-top" style="height: 180px; object-fit: cover;">
       
       <div class="card-body">
+        
         <div class="mb-3 d-flex gap-2">
           @for (icon of pizza().ingredientesIconos; track $index) {
-            <i class="bi bi-star-fill text-secondary" title="{{ icon }}"></i>
+            <i class="bi {{ icon }} fs-5 text-secondary" title="{{ icon }}"></i>
           }
         </div>
         
-        <div class="d-flex gap-2 align-items-center">
-          <label class="form-label mb-0" for="cant-{{ pizza().id }}">Cantidad:</label>
-          <input
-            type="number"
-            id="cant-{{ pizza().id }}"
-            class="form-control form-control-sm"
-            [value]="cantidad()"
-            (input)="onCantidadChange($event.target.value)"
-            min="1"
-            style="width: 70px;"
-          >
+        <div class="d-flex gap-2 align-items-center justify-content-between">
+          
+          <div class="d-flex flex-column align-items-start">
+            <label class="form-label mb-1" for="cant-{{ pizza().id }}">Cantidad</label>
+            <input
+              type="number"
+              id="cant-{{ pizza().id }}"
+              class="form-control form-control-sm"
+              [value]="cantidad()"
+              (input)="onCantidadChange($event)"
+              min="1"
+              style="width: 80px;"
+            >
+          </div>
 
           <app-atomo-boton
-            texto="Comprar"
-            claseBootstrap="btn-success"
-            [class.w-100]="true"
+            texto=""
+            claseBootstrap="btn-success btn-lg"
             (clickBoton)="onAddToCart()">
-            <i class="bi bi-cart-plus"></i>
+            <i class="bi bi-cart-plus-fill fs-4"></i>
           </app-atomo-boton>
         </div>
       </div>

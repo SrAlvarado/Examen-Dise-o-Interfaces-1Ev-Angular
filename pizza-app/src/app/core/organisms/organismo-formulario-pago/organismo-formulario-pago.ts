@@ -1,6 +1,4 @@
 import { Component, input, output, signal } from '@angular/core';
-import { MoleculaItemPedido } from "../../molecules/molecula-item-pedido/molecula-item-pedido";
-import { MoleculaCardPizza } from "../../molecules/molecula-card-pizza/molecula-card-pizza";
 import { PaymentForm } from '../../models/pago.form.model';
 import { AtomoBoton } from "../../atoms/atomo-boton/atomo-boton";
 import { AtomoInput } from "../../atoms/atomo-input/atomo-input";
@@ -14,7 +12,7 @@ const INITIAL_FORM: PaymentForm = {
 };
 @Component({
   selector: 'app-organismo-formulario-pago',
-  imports: [MoleculaItemPedido, MoleculaCardPizza, AtomoBoton, AtomoInput],
+  imports: [AtomoBoton, AtomoInput],
   templateUrl: './organismo-formulario-pago.html',
   styleUrl: './organismo-formulario-pago.scss',
 })
@@ -47,7 +45,7 @@ export class OrganismoFormularioPago {
     if (!data.horaEntrega) { newErrors.horaEntrega = 'Obligatoria.'; isValid = false; }
     if (!data.direccion.trim()) { newErrors.direccion = 'Obligatoria.'; isValid = false; }
 
-    // Validación de Tarjeta (16 dígitos)
+    // Validación de Tarjeta (16 dígitos) - Lógica simple
     if (data.metodoPago === 'Tarjeta') {
       if (data.numeroTarjeta.length !== 16 || !/^\d{16}$/.test(data.numeroTarjeta)) {
         newErrors.numeroTarjeta = 'Debe tener 16 dígitos.';
@@ -55,7 +53,7 @@ export class OrganismoFormularioPago {
       }
     }
 
-    // Validación de Bizum (9 dígitos)
+    // Validación de Bizum (9 dígitos) - Lógica simple
     if (data.metodoPago === 'Bizum') {
       if (data.numeroTelefono.length !== 9 || !/^\d{9}$/.test(data.numeroTelefono)) {
         newErrors.numeroTelefono = 'Debe tener 9 dígitos.';
@@ -68,6 +66,7 @@ export class OrganismoFormularioPago {
   }
 
   onSubmit() {
+    // La plantilla ya tiene (ngSubmit), pero el botón tiene (clickBoton) con onSubmit() también por seguridad.
     if (this.validate()) {
       this.realizarPago.emit(this.form());
     }

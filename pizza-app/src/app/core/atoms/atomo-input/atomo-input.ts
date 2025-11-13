@@ -1,5 +1,6 @@
 import { Component, input, output } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { NgIf } from '@angular/common'; 
+
 @Component({
   selector: 'app-atomo-input',
   imports: [NgIf],
