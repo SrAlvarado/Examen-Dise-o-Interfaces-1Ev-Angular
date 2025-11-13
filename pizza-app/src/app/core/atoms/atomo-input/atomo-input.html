@@ -7,8 +7,7 @@
             class="form-control"
             [class.is-invalid]="errorMensaje()"
             [value]="valor()"
-            (input)="onValorChange($event)">
-        </textarea>
+            (input)="onValorChange($event)"> </textarea>
     </ng-container>
 
     <ng-template #standardInput>
@@ -18,8 +17,7 @@
             class="form-control"
             [class.is-invalid]="errorMensaje()" 
             [value]="valor()"
-            (input)="onValorChange($event.target.value)">
-    </ng-template>
+            (input)="onValorChange($event)"> </ng-template>
         
     <div *ngIf="errorMensaje()" class="invalid-feedback">
         {{ errorMensaje() }}

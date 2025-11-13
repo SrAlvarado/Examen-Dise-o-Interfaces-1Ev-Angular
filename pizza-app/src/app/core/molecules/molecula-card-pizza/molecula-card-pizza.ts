@@ -2,10 +2,11 @@ import { Component, input, output, signal } from '@angular/core';
 import { CartItem, Pizza } from '../../models/pizza.model';
 import { AtomoBoton } from "../../atoms/atomo-boton/atomo-boton";
 import { UpperCasePipe, DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-molecula-card-pizza',
-  imports: [AtomoBoton, UpperCasePipe, DecimalPipe],
+  imports: [AtomoBoton, UpperCasePipe, DecimalPipe, FormsModule],
   templateUrl: './molecula-card-pizza.html',
   styleUrl: './molecula-card-pizza.scss',
 })

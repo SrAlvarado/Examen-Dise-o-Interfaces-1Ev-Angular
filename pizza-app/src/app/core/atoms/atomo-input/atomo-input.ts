@@ -15,7 +15,10 @@ export class AtomoInput {
   tipo = input<string>('text');
   errorMensaje = input<string>(''); 
 
-  onValorChange(nuevoValor: any) {
-    this.valorChange.emit(nuevoValor);
+  onValorChange(event: Event) {
+    const target = event.target as (HTMLInputElement | HTMLTextAreaElement | null);
+    if (target && 'value' in target) {
+      this.valorChange.emit(target.value);
+    }
   }
 }

@@ -10,8 +10,7 @@
     
    <div class="mb-3 d-flex gap-2">
       @for (icon of pizza().ingredientesIconos; track $index) {
-        <i class="{{ icon }} fs-4 text-info" title="{{ icon }}"></i>
-        }
+        <i class="flaticon {{ icon }} fs-4 text-info" title="{{ icon }}"></i>        }
     </div>
     
     <div class="d-flex gap-3 align-items-center">
@@ -21,15 +20,14 @@
         id="cant-{{ pizza().id }}"
         class="form-control form-control-sm"
         [value]="cantidad()"
-        (ngModelChange)="onCantidadChange($event)"
-        min="1"
+        (input)="onCantidadChange($event)" min="1"
         style="width: 70px;"
       >
 
       <app-atomo-boton
         claseBootstrap="btn-success flex-fill" 
         (clickBoton)="onAddToCart()">
-        <i class="bi bi-cart-plus-fill me-1 fs-4"></i>        Comprar
+        <i class="flaticon flaticon-cart-plus me-1 fs-4"></i>        Comprar
       </app-atomo-boton>
     </div>
   </div>
