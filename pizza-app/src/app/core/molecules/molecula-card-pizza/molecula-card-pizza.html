@@ -1,40 +1,36 @@
-<div class="card h-100 shadow-sm">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">{{ pizza().nombre | uppercase }}</h5>
-        <span class="badge bg-primary fs-6">{{ pizza().precio | number:'1.2-2' }}€</span>
-      </div>
-      
-      <img [src]="pizza().imagenUrl" [alt]="pizza().nombre" class="card-img-top" style="height: 180px; object-fit: cover;">
-      
-      <div class="card-body">
-        
-        <div class="mb-3 d-flex gap-2">
-          @for (icon of pizza().ingredientesIconos; track $index) {
-            <i class="bi {{ icon }} fs-5 text-secondary" title="{{ icon }}"></i>
-          }
-        </div>
-        
-        <div class="d-flex gap-2 align-items-center justify-content-between">
-          
-          <div class="d-flex flex-column align-items-start">
-            <label class="form-label mb-1" for="cant-{{ pizza().id }}">Cantidad</label>
-            <input
-              type="number"
-              id="cant-{{ pizza().id }}"
-              class="form-control form-control-sm"
-              [value]="cantidad()"
-              (input)="onCantidadChange($event)"
-              min="1"
-              style="width: 80px;"
-            >
-          </div>
-
-          <app-atomo-boton
-            texto=""
-            claseBootstrap="btn-success btn-lg"
-            (clickBoton)="onAddToCart()">
-            <i class="bi bi-cart-plus-fill fs-4"></i>
-          </app-atomo-boton>
-        </div>
-      </div>
+<div class="card h-100 shadow-sm border-0">
+  <div class="card-header bg-white d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 fw-bold text-uppercase">{{ pizza().nombre | uppercase }}</h5>
+    <span class="badge bg-success fs-6 py-2 px-3">{{ pizza().precio | number:'1.2-2' }}€</span>
+  </div>
+  
+  <img [src]="pizza().imagenUrl" [alt]="pizza().nombre" class="card-img-top" style="height: 180px; object-fit: cover;">
+  
+  <div class="card-body">
+    
+    <div class="mb-3 d-flex gap-3 border-bottom pb-3">
+      @for (icon of pizza().ingredientesIconos; track $index) {
+        <i class="bi bi-gear-fill text-danger fs-5" title="{{ icon }}"></i> 
+      }
     </div>
+    
+    <div class="d-flex gap-3 align-items-center">
+      <label class="form-label mb-0 text-muted" for="cant-{{ pizza().id }}">Cantidad:</label>
+      <input
+        type="number"
+        id="cant-{{ pizza().id }}"
+        class="form-control form-control-sm"
+        [value]="cantidad()"
+        (ngModelChange)="onCantidadChange($event)"
+        min="1"
+        style="width: 70px;"
+      >
+
+      <app-atomo-boton
+        claseBootstrap="btn-success flex-fill" 
+        (clickBoton)="onAddToCart()">
+        <i class="bi bi-cart-plus-fill me-1 fs-4"></i>        Comprar
+      </app-atomo-boton>
+    </div>
+  </div>
+</div>
