@@ -1,0 +1,7 @@
+<button
+    [type]="tipo()"
+    class="btn {{ claseBootstrap() }}"
+    (click)="manejarClick()">
+    <ng-content></ng-content>
+    {{ texto() }}
+</button>

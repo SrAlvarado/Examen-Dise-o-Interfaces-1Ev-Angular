@@ -1,0 +1,14 @@
+<div class="mb-3">
+    <label class="form-label" *ngIf="label()">{{ label() }}</label>
+        <input
+            [type]="tipo()"
+            [placeholder]="placeholder()"
+            class="form-control"
+            [class.is-invalid]="errorMensaje()" 
+            [value]="valor()"
+            (input)="onValorChange($event.target.value)">
+        
+        <div *ngIf="errorMensaje()" class="invalid-feedback">
+        {{ errorMensaje() }}
+    </div>
+</div>
