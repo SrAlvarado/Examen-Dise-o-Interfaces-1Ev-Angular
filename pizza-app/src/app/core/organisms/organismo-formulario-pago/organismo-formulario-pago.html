@@ -1,24 +1,77 @@
-<section class="mb-5">
-  <div class="row g-4 mb-5">
-    
-    @for (pizza of pizzas(); track pizza.id) {
-      <div class="col-12 col-md-6 col-lg-4">
-        <app-molecula-card-pizza 
-          [pizza]="pizza"
-          (addToCart)="onAddToCart($event)">
-        </app-molecula-card-pizza>
-      </div>
-    }
-  </div>
+<section class="card shadow-lg p-4">
+  <h3 class="card-title text-primary mb-4">Finalizar Pedido</h3>
 
-  @if (resumenPedido().length > 0) {
-    <h2 class="text-center text-uppercase my-4">Resumen del Pedido</h2>
-    <div class="list-group shadow-sm">
-      @for (item of resumenPedido(); track item.pizza.id) {
-        <app-molecula-item-pedido 
-          [item]="item">
-        </app-molecula-item-pedido>
+  <form (ngSubmit)="onSubmit()" class="row g-3">
+    
+    <div class="col-md-6">
+      <app-atomo-input 
+        label="Hora de Entrega"
+        tipo="time" 
+        [valor]="form().horaEntrega"
+        [errorMensaje]="errors().horaEntrega"
+        (valorChange)="onInput('horaEntrega', $event)">
+      </app-atomo-input>
+    </div>
+
+    <div class="col-md-6">
+      <app-atomo-input 
+        label="Dirección"
+        tipo="textarea"
+        [valor]="form().direccion"
+        [errorMensaje]="errors().direccion"
+        (valorChange)="onInput('direccion', $event)">
+      </app-atomo-input>
+    </div>
+
+    <div class="col-12 mt-4">
+      <h5 class="mb-3">Método de Pago:</h5>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="metodoPago" id="tarjeta"
+          [checked]="form().metodoPago === 'Tarjeta'"
+          (change)="onMetodoPagoChange('Tarjeta')">
+        <label class="form-check-label" for="tarjeta">Tarjeta</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="metodoPago" id="bizum"
+          [checked]="form().metodoPago === 'Bizum'"
+          (change)="onMetodoPagoChange('Bizum')">
+        <label class="form-check-label" for="bizum">Bizum</label>
+      </div>
+    </div>
+    
+    <div class="col-12">
+      @if (form().metodoPago === 'Tarjeta') {
+        <app-atomo-input
+          label="Número de Tarjeta (16 dígitos)"
+          tipo="text"
+          [valor]="form().numeroTarjeta"
+          [errorMensaje]="errors().numeroTarjeta"
+          (valorChange)="onInput('numeroTarjeta', $event)">
+        </app-atomo-input>
+      } @else if (form().metodoPago === 'Bizum') {
+        <app-atomo-input
+          label="Número de Teléfono (9 dígitos)"
+          tipo="text"
+          [valor]="form().numeroTelefono"
+          [errorMensaje]="errors().numeroTelefono"
+          (valorChange)="onInput('numeroTelefono', $event)">
+        </app-atomo-input>
       }
     </div>
-  }
+
+    <div class="col-12 d-flex justify-content-end gap-3 mt-4">
+      <app-atomo-boton
+        texto="LIMPIAR"
+        claseBootstrap="btn-outline-secondary"
+        (clickBoton)="onClear()">
+      </app-atomo-boton>
+
+      <app-atomo-boton
+        texto="PAGAR"
+        claseBootstrap="btn-success"
+        [tipo]="'submit'"
+        (clickBoton)="onSubmit()">
+      </app-atomo-boton>
+    </div>
+  </form>
 </section>
