@@ -1,0 +1,30 @@
+import { Component, input, output, signal } from '@angular/core';
+import { CartItem, Pizza } from '../../models/pizza.model';
+import { AtomoBoton } from "../../atoms/atomo-boton/atomo-boton";
+
+@Component({
+  selector: 'app-molecula-card-pizza',
+  imports: [AtomoBoton],
+  templateUrl: './molecula-card-pizza.html',
+  styleUrl: './molecula-card-pizza.scss',
+})
+export class MoleculaCardPizza {
+  pizza = input.required<Pizza>();
+  addToCart = output<CartItem>();
+  
+  cantidad = signal(1);
+
+  onCantidadChange(nuevoValor: string) {
+    const num = Number(nuevoValor);
+    this.cantidad.set(num > 0 ? num : 1);
+  }
+
+  onAddToCart() {
+    this.addToCart.emit({
+      pizza: this.pizza(),
+      cantidad: this.cantidad(),
+      subtotal: this.pizza().precio * this.cantidad(),
+    });
+    this.cantidad.set(1); // Reiniciar para nueva compra
+  }
+}
